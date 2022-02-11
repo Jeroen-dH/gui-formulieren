@@ -59,7 +59,6 @@ def addpoints(e):
     Clickbutton.pack()
     randompos()
 
-
 def bindfunction():
     gui.bind(list2[var1],addpoints)
 def unbind():
@@ -75,12 +74,11 @@ def Destroyconfirm():
     timer = (temptimer.get())
     if timer == "":
         timer = 20
-    elif timer > 0:
+    elif timer > "0":
         timer = int(temptimer.get())
     confirmbutton.destroy()
     timerquestion.destroy()
     temptimer.destroy()
-    
     
 Clickbutton = tkinter.Label(
     gui,
@@ -94,6 +92,7 @@ def randombutton():
         text=(list1[var1])
     )       
     Clickbutton.pack()    
+    
     
 timerquestion = tkinter.Label(
     gui,
