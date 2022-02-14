@@ -8,7 +8,7 @@ clickcounter = 0
 update = ""
 gui = tkinter.Tk()
 gui. geometry("400x500")
-gui.title("Clicker V4")
+gui.title("Clicker V5")
 gui.configure(
     bg="gray"
 )
