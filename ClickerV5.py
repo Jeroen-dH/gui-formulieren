@@ -1,4 +1,3 @@
-import argparse
 import tkinter
 from tkinter import ttk
 from tkinter import messagebox
@@ -83,14 +82,16 @@ counter.pack()
 var1 = tkinter.IntVar()
 def autoclicker():
     global update,clickcounter
-    while (var1.get()) == 1:
+    if int(var1.get()) == 1:
         if update == "up":
             clickcounter += 1
             counter.config(text=clickcounter)
+            gui.after(1000, autoclicker)
             colorchanger()
         elif update == "down":
             clickcounter -= 1
             counter.config(text=clickcounter)
+            gui.after(1000, autoclicker)
             colorchanger()
 
 
