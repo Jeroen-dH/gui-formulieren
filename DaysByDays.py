@@ -1,12 +1,7 @@
-import re
 import tkinter
 from tkinter import ttk
-from datetime import datetime
 import datetime as dt
-import calendar
-from tkinter import messagebox
 from tkinter.messagebox import *
-from datetime import timedelta
 
 gui = tkinter.Tk()
 gui.title("DaysByDays")
@@ -27,25 +22,18 @@ combobox3.pack()
 combobox1.place(rely=.5, relx=.100, anchor="w")
 combobox2.place(rely=.5, relx=.50, anchor="center")
 combobox3.place(rely=.5, relx=.9, anchor="e")
-
 def calculate():
     day = int(var1.get())
-    print(day)
     month = str(var2.get())
-    print(month)
     year = int(var3.get())
-    print(year)
     global number, textInfo
     dayPicked = int(day)
     monthPicked = month
     yearPicked = int(year)
     monthNumber = int(dt.datetime.strptime(monthPicked, "%B").month)
-    print(dayPicked,monthNumber,yearPicked)
     today = x
     datePicked = dt.date(yearPicked, monthNumber, dayPicked)
-    print(datePicked,today)
     difference = datePicked - today
-    print(difference)
     number = difference.days
     if number > 0:
         if number == 1:
@@ -59,16 +47,13 @@ def calculate():
             textInfo = "This was " + str(-number) + " days ago"
     else:
         textInfo = "This is today"
-
 GoButton = tkinter.Button(
     gui,
     text="Go",
     bg="blue",
     fg="white",
     activebackground="lightgreen",
-    command=lambda:[calculate(),showinfo(title="Je ma",message=textInfo)]
-)
+    command=lambda:[calculate(),showinfo(title="tijdverschil",message=textInfo)])
 GoButton.pack()
 GoButton.place(rely=.7 ,relx=.5 ,anchor="s")
-
 gui.mainloop()
