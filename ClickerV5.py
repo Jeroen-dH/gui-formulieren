@@ -86,12 +86,12 @@ def autoclicker():
         if update == "up":
             clickcounter += 1
             counter.config(text=clickcounter)
-            gui.after(1000, autoclicker)
+            gui.after(1, autoclicker)
             colorchanger()
         elif update == "down":
             clickcounter -= 1
             counter.config(text=clickcounter)
-            gui.after(1000, autoclicker)
+            gui.after(1, autoclicker)
             colorchanger()
 
 

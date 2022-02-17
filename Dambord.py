@@ -14,17 +14,12 @@ for x in range(10):
         a = 0
     for y in range(10):
         if a == 1:
-            temp = "white"
+            temp = "black"
             a = 0
         elif a == 0:
-            temp = "black"
+            temp = "white"
             a = 1 
-        blokje = tkinter.Label(
-            frame,
-            bg= temp,
-            padx=30,
-            pady=20
-        ).grid(row=y, column=x)
+        blokje = tkinter.Label(frame,bg= temp,padx=30,pady=20).grid(row=y, column=x)
 
 frame.pack(expand=True)
 gui.mainloop()
