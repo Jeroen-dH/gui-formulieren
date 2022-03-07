@@ -7,10 +7,11 @@ gui.geometry("600x300")
 gui.configure(bg="gray")
 gui.title("Raad het word!")
 TempWoord = ""
-Woord = ""
+Woord = []
 frame = tkinter.Frame(gui)
 
 
+errorlabel = tkinter.Label()
 label = tkinter.Label(
     gui,
     text="Type hier een woord die de ander moet raden\n(mag maar 4-7 letters):",
@@ -24,8 +25,8 @@ confirmButton = tkinter.Button(
     gui,
     text="Confirm",
     bg="White",
-    activebackground="lightgreen",
-    command= lambda: [PlayerOneDestroy(),PlayerTwoLoad()]
+    command=lambda: [PlayerOneDestroy()],
+    activebackground="lightgreen"
 )
 confirmButton.pack(pady=10)
 
@@ -48,16 +49,31 @@ def WoordGen():
             state="readonly",
             values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"])
         spinbox.grid(row=1, column=x)
-def PlayerOneDestroy():
+
+def check():
     global TempWoord , Woord
     Woord = TempWoord.get()
     print(Woord)
-    label.destroy()
-    TempWoord.destroy()
-    confirmButton.destroy()
+    if len(Woord)<4 or len(Woord)>7:
+        errorlabel.configure(text="4 tot 7 letters\n niet "+str(len(Woord))+" letters")
+        errorlabel.pack()
+        return False
+    else:
+        return True
+    
+def PlayerOneDestroy():
+    confirm = check()
+    if confirm == True:
+        label.destroy()
+        TempWoord.destroy()
+        confirmButton.destroy()
+        errorlabel.destroy()
+        PlayerTwoLoad()
+    elif confirm == False:
+        print("hoi")
+    
 def PlayerTwoLoad():
     guesslabel.pack(pady=25)
-    WoordGen()
-
+    WoordGen()    
 
 gui.mainloop()
