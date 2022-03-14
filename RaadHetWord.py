@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import StringVar, ttk
+from tkinter.messagebox import *
 
 
 gui= tkinter.Tk()
@@ -9,7 +10,11 @@ gui.title("Raad het word!")
 TempWoord = ""
 Woord = []
 score = 0
+fout = 0
 frame = tkinter.Frame(gui)
+points = 36
+
+
 
 errorlabel = tkinter.Label()
 label = tkinter.Label(
@@ -45,21 +50,51 @@ RaadButton = tkinter.Button(
 
 
 var1 = tkinter.StringVar(value="A")
+list1 = []
+for x in range(7):
+    list1.append(StringVar) 
+    
+spinbox0 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
+spinbox1 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
+spinbox2 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
+spinbox3 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
+spinbox4 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
+spinbox5 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
+spinbox6 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
 
 def WoordGen():
+    global Woord
     frame.pack(pady=50)
-    list1 = []
-    for x in range(len(Woord)):
-        list1.append(StringVar())
-        tkinter.Spinbox(frame,
-            textvariable=list1[x],
-            wrap=True,
-            width=2,
-            justify ="center",
-            state="readonly",
-            values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],
-            bd=5
-            ).grid(row=1, column=x)
+    if len(Woord) == 4:
+        spinbox0.grid(row=1, column=0)
+        spinbox1.grid(row=1, column=1)
+        spinbox2.grid(row=1, column=2)
+        spinbox3.grid(row=1, column=3)
+    if len(Woord) == 5:
+        spinbox0.grid(row=1, column=0)
+        spinbox1.grid(row=1, column=1)
+        spinbox2.grid(row=1, column=2)
+        spinbox3.grid(row=1, column=3)
+        spinbox4.grid(row=1, column=4)
+    if len(Woord) == 6:
+        spinbox0.grid(row=1, column=0)
+        spinbox1.grid(row=1, column=1)
+        spinbox2.grid(row=1, column=2)
+        spinbox3.grid(row=1, column=3)
+        spinbox4.grid(row=1, column=4)
+        spinbox5.grid(row=1, column=5)
+    if len(Woord) == 7:
+        spinbox0.grid(row=1, column=0)
+        spinbox1.grid(row=1, column=1)
+        spinbox2.grid(row=1, column=2)
+        spinbox3.grid(row=1, column=3)
+        spinbox4.grid(row=1, column=4)
+        spinbox5.grid(row=1, column=5)
+        spinbox6.grid(row=1, column=6)
+    return len(Woord)
+    
+            # spinbox1 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5).grid(row=1, column=x)
+        
 
 def check():
     global TempWoord , Woord
@@ -87,8 +122,43 @@ def PlayerTwoLoad():
     guesslabel.pack(pady=25)
     RaadButton.place(x= 285,y=180)
     WoordGen()    
+letter1 = False
+letter2 = False
+letter3 = False
+letter4 = False
+letter5 = False
+letter6 = False
+letter7 = False
+letters = [letter1,letter2,letter3,letter4,letter5,letter6,letter7]
+
+def wrongs(fout):
+    for x in range(len(Woord)):
+        if letters[x] == False:
+            fout += 1
+    return fout
+
+def pointsCheck():
+    if points <= 0:
+        popup = showwarning(title="Geen pogingen meer!",message="je hebt geen punten meer, Game over!")
+
 
 def guessing():
-    print("hoi")
+    global points
+    
+    tempspinboxen = [spinbox0.get(),spinbox1.get(),spinbox2.get(),spinbox3.get(),spinbox4.get(),spinbox5.get(),spinbox6.get()]
+    for x in range(len(Woord)):
+        if tempspinboxen[x] == Woord[x]:
+            letters[x] = True
+            print(letters[x])
+        elif tempspinboxen[x] != Woord[x]:
+            points-=2
+            print(points)
+        print(tempspinboxen[x])
+    fouten = wrongs(0)
+    pointsCheck()
+    if fouten == 0:
+        popup = showinfo(title="Geraden!",message="Gefeliciteerd! je hebt het woord geraden!")
+    elif fouten > 0:
+        popup = showinfo(title="Guess", message="er zijn er "+str(fouten)+" fout\nJe hebt nu nog "+str(points)+" punten")
 
 gui.mainloop()
