@@ -1,7 +1,8 @@
 import tkinter
 from tkinter import StringVar, ttk
 from tkinter.messagebox import *
-
+import sys
+import os
 
 gui= tkinter.Tk()
 gui.geometry("600x300")
@@ -12,8 +13,7 @@ Woord = []
 score = 0
 fout = 0
 frame = tkinter.Frame(gui)
-points = 36
-
+points = 0
 
 
 errorlabel = tkinter.Label()
@@ -54,13 +54,13 @@ list1 = []
 for x in range(7):
     list1.append(StringVar) 
     
-spinbox0 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
-spinbox1 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
-spinbox2 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
-spinbox3 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
-spinbox4 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
-spinbox5 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
-spinbox6 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5)
+spinbox0 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],bd=5)
+spinbox1 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],bd=5)
+spinbox2 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],bd=5)
+spinbox3 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],bd=5)
+spinbox4 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],bd=5)
+spinbox5 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],bd=5)
+spinbox6 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],bd=5)
 
 def WoordGen():
     global Woord
@@ -108,12 +108,14 @@ def check():
         return True
     
 def PlayerOneDestroy():
+    global points
     confirm = check()
     if confirm == True:
         label.destroy()
         TempWoord.destroy()
         confirmButton.destroy()
         errorlabel.destroy()
+        points = len(Woord)*6
         PlayerTwoLoad()
     elif confirm == False:
         print("try again.")
@@ -139,7 +141,17 @@ def wrongs(fout):
 
 def pointsCheck():
     if points <= 0:
-        popup = showwarning(title="Geen pogingen meer!",message="je hebt geen punten meer, Game over!")
+        popup = askyesno(title="Geen pogingen meer!",message="je hebt geen punten meer, Game over!\n Wil je nog een keer spelen?")
+        if popup:
+            print("check")
+            gui.destroy()
+            restart()
+        else:
+            gui.destroy
+
+def restart():
+    python = sys.executable
+    os.execl(python, python, * sys.argv)
 
 
 def guessing():
@@ -154,11 +166,19 @@ def guessing():
             points-=2
             print(points)
         print(tempspinboxen[x])
-    fouten = wrongs(0)
-    pointsCheck()
-    if fouten == 0:
-        popup = showinfo(title="Geraden!",message="Gefeliciteerd! je hebt het woord geraden!")
-    elif fouten > 0:
-        popup = showinfo(title="Guess", message="er zijn er "+str(fouten)+" fout\nJe hebt nu nog "+str(points)+" punten")
+        fouten = wrongs(0)
+    if points <= 0:
+        pointsCheck() 
+        print("game over")
+    else:
+        if fouten == 0:
+            popup = askyesno(title="Geraden!",message="Gefeliciteerd! je hebt het woord geraden!\nwil je nog een keer?")
+            if popup:
+                gui.destroy()
+                restart()
+            else:
+                gui.destroy()
+        elif fouten > 0:
+            popup = showinfo(title="Guess", message="er zijn er "+str(fouten)+" fout\nJe hebt nu nog "+str(points)+" punten")
 
 gui.mainloop()
