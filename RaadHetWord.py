@@ -15,7 +15,6 @@ fout = 0
 frame = tkinter.Frame(gui)
 points = 0
 
-
 errorlabel = tkinter.Label()
 label = tkinter.Label(
     gui,
@@ -47,7 +46,6 @@ RaadButton = tkinter.Button(
     activebackground="lightgreen",
     command=lambda:[guessing()]
 )
-
 
 var1 = tkinter.StringVar(value="A")
 list1 = []
@@ -92,9 +90,6 @@ def WoordGen():
         spinbox5.grid(row=1, column=5)
         spinbox6.grid(row=1, column=6)
     return len(Woord)
-    
-            # spinbox1 = tkinter.Spinbox(frame,textvariable=list1[x],wrap=True,width=2,justify ="center",state="readonly",values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],bd=5).grid(row=1, column=x)
-        
 
 def check():
     global TempWoord , Woord
@@ -153,10 +148,8 @@ def restart():
     python = sys.executable
     os.execl(python, python, * sys.argv)
 
-
 def guessing():
-    global points
-    
+    global points    
     tempspinboxen = [spinbox0.get(),spinbox1.get(),spinbox2.get(),spinbox3.get(),spinbox4.get(),spinbox5.get(),spinbox6.get()]
     for x in range(len(Woord)):
         if tempspinboxen[x] == Woord[x]:
@@ -180,5 +173,4 @@ def guessing():
                 gui.destroy()
         elif fouten > 0:
             popup = showinfo(title="Guess", message="er zijn er "+str(fouten)+" fout\nJe hebt nu nog "+str(points)+" punten")
-
 gui.mainloop()
